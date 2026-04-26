@@ -1,39 +1,39 @@
-import { getPayload, type Payload } from "payload";
-import config from "@payload-config";
+import { getPayload, type Payload } from 'payload'
+import config from '@payload-config'
 
 declare global {
   var payloadClient:
     | {
-        client: Payload | null;
-        promise: Promise<Payload> | null;
+        client: Payload | null
+        promise: Promise<Payload> | null
       }
-    | undefined;
+    | undefined
 }
 
 if (!globalThis.payloadClient) {
   globalThis.payloadClient = {
     client: null,
     promise: null,
-  };
+  }
 }
 
 export const getPayloadClient = async (): Promise<Payload> => {
-  const cached = globalThis.payloadClient!;
+  const cached = globalThis.payloadClient!
 
   if (cached.client) {
-    return cached.client;
+    return cached.client
   }
 
   if (!cached.promise) {
-    cached.promise = getPayload({ config });
+    cached.promise = getPayload({ config })
   }
 
   try {
-    cached.client = await cached.promise;
+    cached.client = await cached.promise
   } catch (error) {
-    cached.promise = null;
-    throw error;
+    cached.promise = null
+    throw error
   }
 
-  return cached.client;
-};
+  return cached.client
+}

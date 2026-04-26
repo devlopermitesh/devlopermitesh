@@ -1,14 +1,14 @@
-import { CollectionConfig } from "payload";
-import { isSuperAdmin } from "./lib/access";
+import { CollectionConfig } from 'payload'
+import { isSuperAdmin } from './lib/access'
 
 export const Comments: CollectionConfig = {
-  slug: "comment",
+  slug: 'comment',
   admin: {
-    useAsTitle: "username",
+    useAsTitle: 'username',
   },
   access: {
     read: ({ req: { user } }) => {
-      return isSuperAdmin(user);
+      return isSuperAdmin(user)
     },
     create: () => true,
     update: () => false,
@@ -16,23 +16,23 @@ export const Comments: CollectionConfig = {
   },
   fields: [
     {
-      name: "username",
-      type: "text",
+      name: 'username',
+      type: 'text',
       required: true,
     },
     {
-      name: "email",
-      type: "email",
+      name: 'email',
+      type: 'email',
       required: true,
     },
     {
-      name: "userwebsite",
-      type: "text",
+      name: 'userwebsite',
+      type: 'text',
     },
     {
-      name: "comment",
-      type: "textarea",
+      name: 'comment',
+      type: 'textarea',
       maxLength: 500,
     },
   ],
-};
+}

@@ -1,56 +1,55 @@
-import { Project } from "@/payload-types";
-import { useEffect, useMemo, useState } from "react";
-import ProjectCard from "./ProjectCard";
+import { Project } from '@/payload-types'
+import { useEffect, useMemo, useState } from 'react'
+import ProjectCard from './ProjectCard'
 
 const ProjectSection = () => {
-  const [Projects, setProjects] = useState<Project[]>([]);
-  const [Loading, setLoading] = useState(false);
-  const [Error, setError] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        setLoading(true)
 
-        const res = await fetch("/api/projects");
+        const res = await fetch('/api/projects')
 
         if (!res.ok) {
-          setError(`HTTP ${res.status}: ${res.statusText}`);
+          setError(`HTTP ${res.status}: ${res.statusText}`)
         }
 
-        const response = await res.json();
+        const response = await res.json()
         const data = await Promise.all(
           response.docs.map(async (project: Project) => {
             const images = await Promise.all(
-              (project.images || []).map(async (img: any) => {
-                const media = await fetch(`/api/media/${img.image.id}`).then(
-                  (res) => res.json(),
-                );
+              (project.images || []).map(async (img) => {
+                const imageId = typeof img.image === 'string' ? img.image : img.image.id
+                const media = await fetch(`/api/media/${imageId}`).then((res) => res.json())
 
                 return {
                   ...img,
                   image: media,
-                };
-              }),
-            );
+                }
+              })
+            )
 
-            return { ...project, images };
-          }),
-        );
+            return { ...project, images }
+          })
+        )
 
         if (!data) {
-          setError("No project found!");
-          return null;
+          setError('No project found!')
+          return null
         }
-        setProjects(data);
+        setProjects(data)
       } catch (error) {
-        console.error("Fetch error:", error);
+        console.error('Fetch error:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchData();
-  }, []);
-  const memoizedProjects = useMemo(() => Projects, [Projects]);
+    }
+    fetchData()
+  }, [])
+  const memoizedProjects = useMemo(() => projects, [projects])
   return (
     <section className="w-full min-h-auto flex flex-col items-center justify-center py-10 bg-black">
       <h2 className="text-3xl md:text-4xl text-center text-gray-100 mb-8">
@@ -58,7 +57,9 @@ const ProjectSection = () => {
       </h2>
 
       <div className="flex flex-col mx-10">
-        {Loading ? (
+        {error ? (
+          <p className="text-red-400 text-center">{error}</p>
+        ) : loading ? (
           <h2 className="text-white">Skelton</h2>
         ) : (
           memoizedProjects.map((project, index) => (
@@ -67,6 +68,6 @@ const ProjectSection = () => {
         )}
       </div>
     </section>
-  );
-};
-export default ProjectSection;
+  )
+}
+export default ProjectSection

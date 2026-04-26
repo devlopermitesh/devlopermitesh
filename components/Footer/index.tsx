@@ -1,12 +1,12 @@
-import Logo from "../Header/Logo";
-import LogoImage from "@/assets/logo.png"
+import Logo from '../Header/Logo'
+import LogoImage from '@/assets/logo.png'
 const Footer = () => {
   return (
     <footer className="w-full border-t border-gray-200 bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo / Brand */}
         <div className="flex items-center gap-2">
-          <Logo src={LogoImage.src} alt="Logo" className="size-10" height={40} width={40}/>
+          <Logo src={LogoImage.src} alt="Logo" className="size-10" height={40} width={40} />
           <span className="text-sm font-medium tracking-tight">Mitesh</span>
         </div>
 
@@ -32,7 +32,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

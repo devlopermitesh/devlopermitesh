@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import AboutSection from "@/components/About";
-import Footer from "@/components/Footer";
-import HeroView from "@/components/HeroSection";
-import LetsTalk from "@/components/LetsTalk";
-import ProjectSection from "@/components/Projects";
-import SkillSection from "@/components/SkillSection";
+import AboutSection from '@/components/About'
+import Footer from '@/components/Footer'
+import HeroView from '@/components/HeroSection'
+import LetsTalk from '@/components/LetsTalk'
+import ProjectSection from '@/components/Projects'
+import SkillSection from '@/components/SkillSection'
 
 const Page = () => {
   return (
@@ -17,7 +17,7 @@ const Page = () => {
       <LetsTalk />
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

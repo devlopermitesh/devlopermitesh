@@ -1,11 +1,11 @@
-import { links } from "@/constant";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { links } from '@/constant'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface FormValues {
-  name: string;
-  email: string;
-  website: string | undefined;
-  comment: string;
+  name: string
+  email: string
+  website: string | undefined
+  comment: string
 }
 const LetsTalk = () => {
   const {
@@ -14,12 +14,12 @@ const LetsTalk = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      name: "",
-      email: "",
-      website: "",
-      comment: "",
+      name: '',
+      email: '',
+      website: '',
+      comment: '',
     },
-  });
+  })
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
@@ -27,30 +27,31 @@ const LetsTalk = () => {
       const payload = {
         name: data.name.trim(),
         email: data.email.trim(),
-        website: data.website?.trim() || "",
+        website: data.website?.trim() || '',
         comment: data.comment.trim(),
-      };
+      }
 
-      const res = await fetch("/api/comment", {
-        method: "POST",
+      const res = await fetch('/api/comment', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify(payload),
-      });
+      })
 
       if (!res.ok) {
-        const errorData = await res.json().catch(() => null);
-        throw new Error(errorData?.message || "Failed to send message");
+        const errorData = await res.json().catch(() => null)
+        throw new Error(errorData?.message || 'Failed to send message')
       }
 
       // optional success handling
-      console.log("Success");
-    } catch (error: any) {
-      console.error("Error:", error.message || "Something went wrong");
+      console.log('Success')
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong'
+      console.error('Error:', errorMessage)
     }
-  };
+  }
   return (
     <section className="w-full h-auto  max-w-7xl flex flex-col md:flex-row items-start justify-around md:py-40 mx-auto ">
       {/* form field */}
@@ -63,14 +64,12 @@ const LetsTalk = () => {
           <input
             placeholder="Your name"
             className="w-full px-4 py-3  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
-            {...register("name", {
-              required: "Your name is required",
-              minLength: { value: 3, message: "Too short!" },
+            {...register('name', {
+              required: 'Your name is required',
+              minLength: { value: 3, message: 'Too short!' },
             })}
           />
-          {errors.name && (
-            <p className="text-xs text-red-500">{errors.name.message}</p>
-          )}
+          {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
         </div>
 
         {/* Email */}
@@ -78,13 +77,11 @@ const LetsTalk = () => {
           <input
             placeholder="Your email"
             className="w-full px-4 py-3  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
-            {...register("email", {
-              validate: (value) => value.includes("@") || "Invalid email",
+            {...register('email', {
+              validate: (value) => value.includes('@') || 'Invalid email',
             })}
           />
-          {errors.email && (
-            <p className="text-xs text-red-500">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
         </div>
 
         {/* Website */}
@@ -92,7 +89,7 @@ const LetsTalk = () => {
           <input
             placeholder="Your website (optional)"
             className="w-full px-4 py-3  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
-            {...register("website")}
+            {...register('website')}
           />
         </div>
 
@@ -102,14 +99,12 @@ const LetsTalk = () => {
             rows={4}
             placeholder="Your message"
             className="w-full px-4 py-3  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition resize-none"
-            {...register("comment", {
-              required: "Comment is required",
-              maxLength: { value: 400, message: "Too long!" },
+            {...register('comment', {
+              required: 'Comment is required',
+              maxLength: { value: 400, message: 'Too long!' },
             })}
           />
-          {errors.comment && (
-            <p className="text-xs text-red-500">{errors.comment.message}</p>
-          )}
+          {errors.comment && <p className="text-xs text-red-500">{errors.comment.message}</p>}
         </div>
 
         {/* Button + Socials */}
@@ -119,7 +114,7 @@ const LetsTalk = () => {
             disabled={isSubmitting}
             className="px-6 py-3 rounded-lg bg-black text-white font-medium hover:bg-gray-800 transition disabled:opacity-50"
           >
-            {isSubmitting ? "Sending..." : "Get in Touch"}
+            {isSubmitting ? 'Sending...' : 'Get in Touch'}
           </button>
 
           <div className="flex gap-3">
@@ -142,10 +137,7 @@ const LetsTalk = () => {
       <div className="flex flex-col max-w-lg gap-6 text-center md:text-left order-first md:order-last">
         {/* Small intro */}
         <h2 className="text-xl md:text-3xl text-gray-700 leading-snug">
-          <b>Let’s</b>{" "}
-          <span className="text-white [-webkit-text-stroke:1px_black]">
-            talk
-          </span>{" "}
+          <b>Let’s</b> <span className="text-white [-webkit-text-stroke:1px_black]">talk</span>{' '}
           <b>for</b>
         </h2>
 
@@ -156,16 +148,14 @@ const LetsTalk = () => {
 
         {/* Description */}
         <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-md">
-          I seek to push the limits of creativity to create high-engaging,
-          user-friendly, and memorable interactive experiences.
+          I seek to push the limits of creativity to create high-engaging, user-friendly, and
+          memorable interactive experiences.
         </p>
 
         {/* Email */}
-        <p className="text-lg md:text-xl font-semibold text-black pt-2">
-          miteshgehlot6@gmail.com
-        </p>
+        <p className="text-lg md:text-xl font-semibold text-black pt-2">miteshgehlot6@gmail.com</p>
       </div>
     </section>
-  );
-};
-export default LetsTalk;
+  )
+}
+export default LetsTalk

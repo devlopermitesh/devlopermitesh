@@ -1,27 +1,27 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 interface RouteLinkProps {
-  name: string;
-  path: string; // "#about"
-  active: boolean;
+  name: string
+  path: string // "#about"
+  active: boolean
 }
 
 const RouteLink = ({ name, path, active }: RouteLinkProps) => {
   const handleScroll = (e: React.MouseEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const id = path.replace("#", "");
-    const el = document.getElementById(id);
-    console.log("Id", id);
+    const id = path.replace('#', '')
+    const el = document.getElementById(id)
+    console.log('Id', id)
     if (el) {
       el.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+        behavior: 'smooth',
+        block: 'start',
+      })
     }
-  };
+  }
 
   return (
     <li className="list-none">
@@ -33,14 +33,14 @@ const RouteLink = ({ name, path, active }: RouteLinkProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
           className={`block rounded-full px-4 py-2 text-sm font-medium transition
-            ${active ? "bg-black text-white" : "text-black hover:underline"}
+            ${active ? 'bg-black text-white' : 'text-black hover:underline'}
           `}
         >
           {name}
         </motion.span>
       </button>
     </li>
-  );
-};
+  )
+}
 
-export default RouteLink;
+export default RouteLink

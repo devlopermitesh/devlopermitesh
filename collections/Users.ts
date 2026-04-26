@@ -1,15 +1,21 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionConfig, PayloadRequest } from 'payload'
 
-import {
-  canManageAdmins,
-  hasAdminPermissionValue,
-} from "@/collections/lib/access";
+import { canManageAdmins, hasAdminPermissionValue } from '@/collections/lib/access'
 
-const canManageAdminsFieldAccess = ({ req }: any) =>
-  hasAdminPermissionValue(req.user as any, "system.canManageAdmins");
+type AppUser = {
+  id: string
+  role?: string | null
+  adminProfile?: {
+    adminType?: string | null
+    permissions?: Record<string, Record<string, unknown>> | null
+  } | null
+}
+
+const canManageAdminsFieldAccess = ({ req }: { req: PayloadRequest }) =>
+  hasAdminPermissionValue(req.user as AppUser | null, 'system.canManageAdmins')
 
 export const Users: CollectionConfig = {
-  slug: "users",
+  slug: 'users',
 
   auth: {
     tokenExpiration: 7200, // 2 hours
@@ -19,89 +25,89 @@ export const Users: CollectionConfig = {
   },
 
   admin: {
-    useAsTitle: "email",
-    group: "User Management",
+    useAsTitle: 'email',
+    group: 'User Management',
   },
 
   access: {
-    create: ({ req }) => {
+    create: ({ req }: { req: PayloadRequest }) => {
       // Allow anyone to create an account, but admins can create users
-      const user = req.user as any;
-      if (!user) return true; // Public registration
-      return canManageAdmins({ req });
+      const user = req.user as AppUser | null
+      if (!user) return true // Public registration
+      return canManageAdmins({ req })
     },
-    read: ({ req }) => {
-      const user = req.user as any;
-      if (!user?.id) return false;
-      if (canManageAdmins({ req })) return true;
-      return { id: { equals: user.id } };
+    read: ({ req }: { req: PayloadRequest }) => {
+      const user = req.user as AppUser | null
+      if (!user?.id) return false
+      if (canManageAdmins({ req })) return true
+      return { id: { equals: user.id } }
     },
-    update: ({ req }) => {
-      const user = req.user as any;
-      if (!user?.id) return false;
-      if (canManageAdmins({ req })) return true;
-      return { id: { equals: user.id } };
+    update: ({ req }: { req: PayloadRequest }) => {
+      const user = req.user as AppUser | null
+      if (!user?.id) return false
+      if (canManageAdmins({ req })) return true
+      return { id: { equals: user.id } }
     },
-    delete: ({ req }) => canManageAdmins({ req }),
+    delete: ({ req }: { req: PayloadRequest }) => canManageAdmins({ req }),
   },
 
   fields: [
     // ===== Basic Fields =====
     {
-      name: "name",
-      type: "text",
+      name: 'name',
+      type: 'text',
       required: true,
     },
     {
-      name: "role",
-      type: "select",
+      name: 'role',
+      type: 'select',
       options: [
-        { label: "User", value: "User" },
-        { label: "Admin", value: "Admin" },
+        { label: 'User', value: 'User' },
+        { label: 'Admin', value: 'Admin' },
       ],
-      defaultValue: "User",
+      defaultValue: 'User',
       access: {
         update: canManageAdminsFieldAccess,
       },
     },
     {
-      name: "adminProfile",
-      type: "group",
+      name: 'adminProfile',
+      type: 'group',
       admin: {
-        condition: (data) => data.role === "Admin",
+        condition: (data) => data.role === 'Admin',
       },
       fields: [
         {
-          name: "adminType",
-          type: "select",
+          name: 'adminType',
+          type: 'select',
           options: [
-            { label: "Standard Admin", value: "STANDARD_ADMIN" },
-            { label: "Super Admin", value: "SUPER_ADMIN" },
+            { label: 'Standard Admin', value: 'STANDARD_ADMIN' },
+            { label: 'Super Admin', value: 'SUPER_ADMIN' },
           ],
-          defaultValue: "STANDARD_ADMIN",
+          defaultValue: 'STANDARD_ADMIN',
           access: {
             update: canManageAdminsFieldAccess,
           },
         },
         {
-          name: "permissions",
-          type: "group",
+          name: 'permissions',
+          type: 'group',
           fields: [
             {
-              name: "system",
-              type: "group",
+              name: 'system',
+              type: 'group',
               fields: [
                 {
-                  name: "canManageAdmins",
-                  type: "checkbox",
+                  name: 'canManageAdmins',
+                  type: 'checkbox',
                   defaultValue: false,
                   access: {
                     update: canManageAdminsFieldAccess,
                   },
                 },
                 {
-                  name: "canAccessSettings",
-                  type: "checkbox",
+                  name: 'canAccessSettings',
+                  type: 'checkbox',
                   defaultValue: false,
                   access: {
                     update: canManageAdminsFieldAccess,
@@ -110,27 +116,27 @@ export const Users: CollectionConfig = {
               ],
             },
             {
-              name: "content",
-              type: "group",
+              name: 'content',
+              type: 'group',
               fields: [
                 {
-                  name: "canManageBlogs",
-                  type: "checkbox",
+                  name: 'canManageBlogs',
+                  type: 'checkbox',
                   defaultValue: false,
                 },
                 {
-                  name: "canManageProjects",
-                  type: "checkbox",
+                  name: 'canManageProjects',
+                  type: 'checkbox',
                   defaultValue: false,
                 },
                 {
-                  name: "canManageSkills",
-                  type: "checkbox",
+                  name: 'canManageSkills',
+                  type: 'checkbox',
                   defaultValue: false,
                 },
                 {
-                  name: "canManageMedia",
-                  type: "checkbox",
+                  name: 'canManageMedia',
+                  type: 'checkbox',
                   defaultValue: false,
                 },
               ],
@@ -140,4 +146,4 @@ export const Users: CollectionConfig = {
       ],
     },
   ],
-};
+}

@@ -1,15 +1,15 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 const SkillCard = ({
   skill,
 }: {
   skill: {
-    name: string;
-    category: string;
-    proficiency: number;
-  };
+    name: string
+    category: string
+    proficiency: number
+  }
 }) => {
-  const Codename = skill.name.slice(0, 2);
+  const Codename = skill.name.slice(0, 2)
 
   return (
     <motion.div
@@ -45,7 +45,7 @@ const SkillCard = ({
           initial: { x: 40, opacity: 0 },
           hover: { x: 0, opacity: 1 },
         }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
         className="absolute z-10 flex flex-col items-center text-white"
       >
         <span className="flex gap-1 items-end">
@@ -55,7 +55,7 @@ const SkillCard = ({
         <h4 className="text-gray-300">{skill.category} |</h4>
       </motion.div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default SkillCard;
+export default SkillCard

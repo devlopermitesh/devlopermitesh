@@ -1,60 +1,53 @@
 // src/adapters/cloudinaryAdapter.ts
-import type {
-  Adapter,
-  GeneratedAdapter,
-} from "@payloadcms/plugin-cloud-storage/types";
-import cloudinary from "@/collections/lib/cloudinary";
-import { UploadApiResponse } from "cloudinary";
-import { getStaticHandler } from "./hooks/staticHandler";
-import { FileDataWithCloudinary } from "./types";
+import type { Adapter, GeneratedAdapter } from '@payloadcms/plugin-cloud-storage/types'
+import cloudinary from '@/collections/lib/cloudinary'
+import { UploadApiResponse } from 'cloudinary'
+import { getStaticHandler } from './hooks/staticHandler'
+import { FileDataWithCloudinary } from './types'
 
 export interface CloudinaryAdapterArgs {
-  cloudName: string;
-  folder?: string;
+  cloudName: string
+  folder?: string
 }
 
 export const cloudinaryAdapter = ({
   cloudName,
-  folder = "payload-uploads",
+  folder = 'payload-uploads',
 }: CloudinaryAdapterArgs): Adapter => {
   return ({ collection }): GeneratedAdapter => {
-    const folderPath = folder;
+    const folderPath = folder
 
     return {
-      name: "cloudinary",
+      name: 'cloudinary',
 
       // ✅ Upload file to Cloudinary
       handleUpload: async ({ data, file }) => {
         try {
           // Determine resource type based on mimetype
-          let resourceType: "image" | "video" | "raw" = "raw";
-          if (file.mimeType?.startsWith("image/")) {
-            resourceType = "image";
-          } else if (file.mimeType?.startsWith("video/")) {
-            resourceType = "video";
+          let resourceType: 'image' | 'video' | 'raw' = 'raw'
+          if (file.mimeType?.startsWith('image/')) {
+            resourceType = 'image'
+          } else if (file.mimeType?.startsWith('video/')) {
+            resourceType = 'video'
           }
 
           // Generate public ID
-          const publicId =
-            `${folderPath}/${data.filename || file.filename}`.replace(
-              /\.[^/.]+$/,
-              "",
-            );
+          const publicId = `${folderPath}/${data.filename || file.filename}`.replace(
+            /\.[^/.]+$/,
+            ''
+          )
 
-          const FilePath: string = `data:${file.mimeType};base64,${file.buffer.toString("base64")}`;
+          const FilePath: string = `data:${file.mimeType};base64,${file.buffer.toString('base64')}`
           // Upload to Cloudinary
-          const result: UploadApiResponse = await cloudinary.uploader.upload(
-            FilePath,
-            {
-              public_id: publicId,
-              folder: folderPath,
-              resource_type: resourceType,
-              overwrite: false,
-              unique_filename: true,
-            },
-          );
+          const result: UploadApiResponse = await cloudinary.uploader.upload(FilePath, {
+            public_id: publicId,
+            folder: folderPath,
+            resource_type: resourceType,
+            overwrite: false,
+            unique_filename: true,
+          })
 
-          console.log("✅ Uploaded to Cloudinary:", result.secure_url);
+          console.log('✅ Uploaded to Cloudinary:', result.secure_url)
 
           return {
             ...data,
@@ -80,10 +73,10 @@ export const cloudinaryAdapter = ({
             filesize: result.bytes,
             width: result.width,
             height: result.height,
-          };
+          }
         } catch (error) {
-          console.error("❌ Cloudinary upload failed:", error);
-          throw error;
+          console.error('❌ Cloudinary upload failed:', error)
+          throw error
         }
       },
 
@@ -91,28 +84,28 @@ export const cloudinaryAdapter = ({
       handleDelete: async ({ doc }) => {
         try {
           // Get public_id from doc
-          const docData = doc as FileDataWithCloudinary;
-          const publicId = docData?.cloudinary?.public_id;
-          const resourceType = docData?.cloudinary?.resource_type || "image";
+          const docData = doc as FileDataWithCloudinary
+          const publicId = docData?.cloudinary?.public_id
+          const resourceType = docData?.cloudinary?.resource_type || 'image'
 
           if (!publicId) {
-            console.warn("⚠️ No public_id found for deletion");
-            return;
+            console.warn('⚠️ No public_id found for deletion')
+            return
           }
 
           // Delete from Cloudinary
           const result = await cloudinary.uploader.destroy(publicId, {
             resource_type: resourceType,
             invalidate: true, // Invalidate CDN cache
-          });
+          })
 
-          if (result.result === "ok") {
-            console.log("✅ Deleted from Cloudinary:", publicId);
+          if (result.result === 'ok') {
+            console.log('✅ Deleted from Cloudinary:', publicId)
           } else {
-            console.warn("⚠️ Cloudinary deletion result:", result);
+            console.warn('⚠️ Cloudinary deletion result:', result)
           }
         } catch (error) {
-          console.error("❌ Cloudinary delete failed:", error);
+          console.error('❌ Cloudinary delete failed:', error)
         }
       },
 
@@ -120,7 +113,7 @@ export const cloudinaryAdapter = ({
       generateURL: ({ filename }) => {
         // URL is already stored in doc.url from handleUpload
         // This is a fallback if needed
-        return `https://res.cloudinary.com/${cloudName}/image/upload/${folderPath}/${filename}`;
+        return `https://res.cloudinary.com/${cloudName}/image/upload/${folderPath}/${filename}`
       },
 
       // ✅ Static handler (serves files in admin)
@@ -129,6 +122,6 @@ export const cloudinaryAdapter = ({
         collection,
         folder: folderPath,
       }),
-    };
-  };
-};
+    }
+  }
+}

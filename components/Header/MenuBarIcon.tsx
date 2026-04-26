@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 const MenuBarIcon = ({
   className,
   isOpen,
   onClick,
 }: {
-  className?: string;
-  isOpen: boolean;
-  onClick: () => void;
+  className?: string
+  isOpen: boolean
+  onClick: () => void
 }) => {
   return (
     <div
@@ -42,7 +42,7 @@ const MenuBarIcon = ({
         className="block w-8 h-1 bg-black rounded-full"
       />
     </div>
-  );
-};
+  )
+}
 
-export default MenuBarIcon;
+export default MenuBarIcon

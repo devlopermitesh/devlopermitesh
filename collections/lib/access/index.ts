@@ -1,3 +1,3 @@
-export * from "./types";
-export * from "./permissions";
-export * from "./isForbidden";
+export * from './types'
+export * from './permissions'
+export * from './isForbidden'

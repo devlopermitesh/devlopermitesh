@@ -1,14 +1,6 @@
-import { links } from "@/constant";
-import {
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-  FaYoutube,
-} from "react-icons/fa";
+import { links } from '@/constant'
 
 const SocialLinks = () => {
-
-
   return (
     <div className="flex flex-wrap gap-4 ">
       {links.map(({ icon: Icon, url, site_name }) => (
@@ -24,7 +16,7 @@ const SocialLinks = () => {
         </a>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default SocialLinks;
+export default SocialLinks

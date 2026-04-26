@@ -1,17 +1,17 @@
-import { CollectionConfig } from "payload";
-import { canManageProjects } from "./lib/access";
+import { CollectionConfig } from 'payload'
+import { canManageProjects } from './lib/access'
 
 export const Projects: CollectionConfig = {
-  slug: "projects",
+  slug: 'projects',
   admin: {
-    useAsTitle: "title",
-    group: "Content Management",
+    useAsTitle: 'title',
+    group: 'Content Management',
   },
   access: {
     read: ({ req }) => {
       // Featured projects are public, others only for admins
-      if (canManageProjects({ req })) return true;
-      return { featured: { equals: true } };
+      if (canManageProjects({ req })) return true
+      return { featured: { equals: true } }
     },
     create: canManageProjects,
     update: canManageProjects,
@@ -19,64 +19,64 @@ export const Projects: CollectionConfig = {
   },
   fields: [
     {
-      name: "title",
-      type: "text",
+      name: 'title',
+      type: 'text',
       required: true,
     },
     {
-      name: "description",
-      type: "textarea",
+      name: 'description',
+      type: 'textarea',
       required: true,
     },
     {
-      name: "longDescription",
-      type: "richText",
+      name: 'longDescription',
+      type: 'richText',
     },
     {
-      name: "technologies",
-      type: "relationship",
-      relationTo: "skills",
+      name: 'technologies',
+      type: 'relationship',
+      relationTo: 'skills',
       hasMany: true,
       required: true,
     },
     {
-      name: "images",
-      type: "array",
+      name: 'images',
+      type: 'array',
       fields: [
         {
-          name: "image",
-          type: "upload",
-          relationTo: "media",
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
           required: true,
         },
         {
-          name: "caption",
-          type: "text",
+          name: 'caption',
+          type: 'text',
         },
       ],
     },
     {
-      name: "demoUrl",
-      type: "text",
+      name: 'demoUrl',
+      type: 'text',
     },
     {
-      name: "sourceUrl",
-      type: "text",
+      name: 'sourceUrl',
+      type: 'text',
     },
     {
-      name: "featured",
-      type: "checkbox",
+      name: 'featured',
+      type: 'checkbox',
       defaultValue: false,
     },
     {
-      name: "status",
-      type: "select",
+      name: 'status',
+      type: 'select',
       options: [
-        { label: "Completed", value: "completed" },
-        { label: "In Progress", value: "in-progress" },
-        { label: "Planned", value: "planned" },
+        { label: 'Completed', value: 'completed' },
+        { label: 'In Progress', value: 'in-progress' },
+        { label: 'Planned', value: 'planned' },
       ],
-      defaultValue: "completed",
+      defaultValue: 'completed',
     },
   ],
-};
+}

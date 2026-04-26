@@ -1,36 +1,35 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Sora } from "next/font/google";
-import ".././globals.css";
-import Header from "@/components/Header";
+import { Geist, Geist_Mono, Sora } from 'next/font/google'
+import '.././globals.css'
+import Header from '@/components/Header'
 
 const sora = Sora({
-  subsets: ["latin"],
-  variable: "--font-sora",
-  display: "swap",
-});
+  subsets: ['latin'],
+  variable: '--font-sora',
+  display: 'swap',
+})
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+})
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
 
 export const metadata = {
   title: {
-    default: "My Website",
-    template: "%s | My Website",
+    default: 'My Website',
+    template: '%s | My Website',
   },
-  description: "Yeh meri website ka default description hai",
-};
+  description: 'Yeh meri website ka default description hai',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html
@@ -46,5 +45,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  );
+  )
 }

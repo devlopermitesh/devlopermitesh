@@ -1,17 +1,13 @@
-import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { ReactNode } from 'react'
+import { motion } from 'framer-motion'
 
 interface AuthLayoutProps {
-  children: ReactNode;
-  title: string;
-  subtitle?: string;
+  children: ReactNode
+  title: string
+  subtitle?: string
 }
 
-export default function AuthLayout({
-  children,
-  title,
-  subtitle,
-}: AuthLayoutProps) {
+export default function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background effects */}
@@ -37,5 +33,5 @@ export default function AuthLayout({
         {children}
       </motion.div>
     </div>
-  );
+  )
 }

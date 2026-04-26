@@ -1,13 +1,13 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 const Navigation = () => {
   const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/work", label: "Work" },
-    { href: "/blogs", label: "Blogs" },
-    { href: "/contactme", label: "Contact" },
-  ];
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/work', label: 'Work' },
+    { href: '/blogs', label: 'Blogs' },
+    { href: '/contactme', label: 'Contact' },
+  ]
 
   return (
     <nav className="hidden md:flex space-x-6">
@@ -21,7 +21,7 @@ const Navigation = () => {
         </Link>
       ))}
     </nav>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation
