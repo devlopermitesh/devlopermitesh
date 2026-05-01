@@ -52,6 +52,7 @@ export default function FastSlider({
           src={image.src}
           alt={image.alt ?? `Slide ${i + 1}`}
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className={`absolute top-0 left-0 object-fill transition-opacity duration-500 ${
             i === index ? 'opacity-100' : 'opacity-0'
           }`}

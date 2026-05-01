@@ -1,13 +1,23 @@
-import { links } from '@/constant'
+'use client'
+
+import SocialLinks from './common/SocialLinks'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import type { Portfolio } from '@/payload-types'
+import { useMemo } from 'react'
 
 interface FormValues {
   name: string
   email: string
   website: string | undefined
   comment: string
+  company?: string
 }
-const LetsTalk = () => {
+
+type LetsTalkProps = {
+  socialLinks?: Portfolio['footer']['socialLinks']
+}
+
+const LetsTalk = ({ socialLinks }: LetsTalkProps) => {
   const {
     register,
     handleSubmit,
@@ -18,6 +28,7 @@ const LetsTalk = () => {
       email: '',
       website: '',
       comment: '',
+      company: '',
     },
   })
 
@@ -29,9 +40,10 @@ const LetsTalk = () => {
         email: data.email.trim(),
         website: data.website?.trim() || '',
         comment: data.comment.trim(),
+        company: data.company?.trim() || '',
       }
 
-      const res = await fetch('/api/comment', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,13 +64,29 @@ const LetsTalk = () => {
       console.error('Error:', errorMessage)
     }
   }
+
+  const emailAddress = useMemo(() => {
+    const emailLink = socialLinks?.find((link) => link.platform === 'email')?.url
+    if (!emailLink) return 'miteshgehlot6@gmail.com'
+
+    if (emailLink.startsWith('mailto:')) return emailLink.replace('mailto:', '')
+    return emailLink
+  }, [socialLinks])
+
   return (
-    <section className="w-full h-auto  max-w-7xl flex flex-col md:flex-row items-start justify-around md:py-40 mx-auto ">
+    <section
+      id="contact-me"
+      className="w-full h-auto  max-w-7xl flex flex-col md:flex-row items-start justify-around md:py-40 mx-auto "
+    >
       {/* form field */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-lg flex flex-col gap-5 bg-white p-8 rounded-2xl "
       >
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="company">Company</label>
+          <input id="company" tabIndex={-1} autoComplete="off" {...register('company')} />
+        </div>
         {/* Name */}
         <div className="flex flex-col gap-1">
           <input
@@ -117,20 +145,11 @@ const LetsTalk = () => {
             {isSubmitting ? 'Sending...' : 'Get in Touch'}
           </button>
 
-          <div className="flex gap-3">
-            {links.map(({ icon: Icon, url, site_name }) => (
-              <a
-                key={site_name}
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={site_name}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-white text-black shadow-sm transition hover:-translate-y-1 hover:bg-black hover:text-white"
-              >
-                <Icon className="h-5 w-5" />
-              </a>
-            ))}
-          </div>
+          <SocialLinks
+            links={socialLinks}
+            itemClassName="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-white text-black shadow-sm transition hover:-translate-y-1 hover:bg-black hover:text-white"
+            iconClassName="h-5 w-5"
+          />
         </div>
       </form>
 
@@ -153,7 +172,7 @@ const LetsTalk = () => {
         </p>
 
         {/* Email */}
-        <p className="text-lg md:text-xl font-semibold text-black pt-2">miteshgehlot6@gmail.com</p>
+        <p className="text-lg md:text-xl font-semibold text-black pt-2">{emailAddress}</p>
       </div>
     </section>
   )

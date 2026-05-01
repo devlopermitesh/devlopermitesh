@@ -9,23 +9,11 @@ interface RouteLinkProps {
 }
 
 const RouteLink = ({ name, path, active }: RouteLinkProps) => {
-  const handleScroll = (e: React.MouseEvent) => {
-    e.preventDefault()
-
-    const id = path.replace('#', '')
-    const el = document.getElementById(id)
-    console.log('Id', id)
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }
-  }
+  const href = path.startsWith('/') ? `#${path.slice(1)}` : path
 
   return (
     <li className="list-none">
-      <button onClick={handleScroll}>
+      <a href={href} aria-current={active ? 'page' : undefined}>
         <motion.span
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -38,7 +26,7 @@ const RouteLink = ({ name, path, active }: RouteLinkProps) => {
         >
           {name}
         </motion.span>
-      </button>
+      </a>
     </li>
   )
 }

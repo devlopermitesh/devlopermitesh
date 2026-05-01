@@ -10,7 +10,7 @@ export const Comments: CollectionConfig = {
     read: ({ req: { user } }) => {
       return isSuperAdmin(user)
     },
-    create: () => true,
+    create: () => false,
     update: () => false,
     delete: () => false,
   },

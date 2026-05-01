@@ -1,3 +1,5 @@
+'use client'
+
 import { Project } from '@/payload-types'
 import FastSlider, { SliderImage } from './common/FastSlider'
 import { SquareArrowOutUpRight } from 'lucide-react'
@@ -64,14 +66,14 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         <div className="flex flex-row gap-5 py-2 items-center">
           <span className="text-white flex gap-2 underline items-center">
             <SquareArrowOutUpRight className="size-5" />
-            <a href={project.demoUrl ?? ''} target="_blank">
+            <a href={project.demoUrl ?? ''} target="_blank" rel="noreferrer noopener">
               visit
             </a>
           </span>
 
           <span className="text-white flex gap-2 underline items-center">
             <FaGithub className="size-5" />
-            <a href={project.sourceUrl ?? ''} target="_blank">
+            <a href={project.sourceUrl ?? ''} target="_blank" rel="noreferrer noopener">
               source_code
             </a>
           </span>

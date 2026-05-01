@@ -1,8 +1,16 @@
+'use client'
+
 import { Project } from '@/payload-types'
 import { useEffect, useMemo, useState } from 'react'
 import ProjectCard from './ProjectCard'
+import ProjectCardSkeleton from './ProjectSkelton'
 
-const ProjectSection = () => {
+type ProjectSectionProps = {
+  title?: string | null
+  description?: string | null
+}
+
+const ProjectSection = ({ title, description }: ProjectSectionProps) => {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -11,30 +19,20 @@ const ProjectSection = () => {
       try {
         setLoading(true)
 
-        const res = await fetch('/api/projects')
+        const res = await fetch('/api/projects?depth=2&limit=50')
 
         if (!res.ok) {
-          setError(`HTTP ${res.status}: ${res.statusText}`)
+          const message = `HTTP ${res.status}: ${res.statusText}`
+          setError(message)
+          return
         }
 
-        const response = await res.json()
-        const data = await Promise.all(
-          response.docs.map(async (project: Project) => {
-            const images = await Promise.all(
-              (project.images || []).map(async (img) => {
-                const imageId = typeof img.image === 'string' ? img.image : img.image.id
-                const media = await fetch(`/api/media/${imageId}`).then((res) => res.json())
-
-                return {
-                  ...img,
-                  image: media,
-                }
-              })
-            )
-
-            return { ...project, images }
-          })
-        )
+        const response: unknown = await res.json()
+        const docs =
+          response && typeof response === 'object' && 'docs' in response
+            ? (response as { docs?: Project[] }).docs
+            : undefined
+        const data = Array.isArray(docs) ? docs : []
 
         if (!data) {
           setError('No project found!')
@@ -51,16 +49,29 @@ const ProjectSection = () => {
   }, [])
   const memoizedProjects = useMemo(() => projects, [projects])
   return (
-    <section className="w-full min-h-auto flex flex-col items-center justify-center py-10 bg-black">
+    <section
+      id="project"
+      className="w-full min-h-auto flex flex-col items-center justify-center py-10 bg-black"
+    >
       <h2 className="text-3xl md:text-4xl text-center text-gray-100 mb-8">
-        My <span className=" font-semibold text-white">Work</span>
+        {(title ?? 'My Work').split(' ')[0] ?? 'My'}{' '}
+        <span className=" font-semibold text-white">
+          {(title ?? 'My Work').split(' ').slice(1).join(' ') || 'Work'}
+        </span>
       </h2>
+      {description ? (
+        <p className="text-sm md:text-base text-center text-gray-400 max-w-2xl mb-6 px-4">
+          {description}
+        </p>
+      ) : null}
 
-      <div className="flex flex-col mx-10">
+      <div className="flex flex-col mx-10 min-w-3xl lg:min-w-7xl">
         {error ? (
           <p className="text-red-400 text-center">{error}</p>
         ) : loading ? (
-          <h2 className="text-white">Skelton</h2>
+          Array.from({ length: 3 }).map((_v, index) => (
+            <ProjectCardSkeleton index={index} key={index} />
+          ))
         ) : (
           memoizedProjects.map((project, index) => (
             <ProjectCard key={project.id} index={index} project={project} />

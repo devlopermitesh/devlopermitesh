@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import useRoutes from './hooks/useRouter'
 import RouteLink from './RouteLink'
 import { Download } from 'lucide-react'
+import { siteConfig } from '@/config/site'
 
 const MobileMenu = ({ open }: { open: boolean }) => {
   const routes = useRoutes()
@@ -21,10 +22,15 @@ const MobileMenu = ({ open }: { open: boolean }) => {
           {routes.routes.map((route) => (
             <RouteLink key={route.path} active={route.active} name={route.name} path={route.path} />
           ))}
-          <button className="flex px-10 md:hidden items-center  gap-1 md:p-2 bg-white dark:bg-black rounded text-center text-md">
+          <a
+            href={siteConfig.resumeUrl || '#'}
+            target={siteConfig.resumeUrl ? '_blank' : undefined}
+            rel={siteConfig.resumeUrl ? 'noreferrer noopener' : undefined}
+            className="flex px-10 md:hidden items-center  gap-1 md:p-2 bg-white dark:bg-black rounded text-center text-md"
+          >
             RESUME
             <Download size={17} />
-          </button>
+          </a>
         </motion.div>
       )}
     </AnimatePresence>

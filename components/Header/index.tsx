@@ -7,6 +7,7 @@ import { Download } from 'lucide-react'
 import MobileMenu from './MobileMenu'
 import { useState } from 'react'
 import MenuBarIcon from './MenuBarIcon'
+import { siteConfig } from '@/config/site'
 const Header = () => {
   const [open, setopen] = useState(false)
 
@@ -24,10 +25,15 @@ const Header = () => {
             <RouteLink key={route.path} active={route.active} name={route.name} path={route.path} />
           ))}
       </ul>
-      <button className="hidden md:flex items-center  gap-1 md:p-2 bg-white dark:bg-black rounded text-center text-md">
+      <a
+        href={siteConfig.resumeUrl || '#'}
+        target={siteConfig.resumeUrl ? '_blank' : undefined}
+        rel={siteConfig.resumeUrl ? 'noreferrer noopener' : undefined}
+        className="hidden md:flex items-center  gap-1 md:p-2 bg-white dark:bg-black rounded text-center text-md"
+      >
         RESUME
         <Download size={17} />
-      </button>
+      </a>
       <div className="">
         <MenuBarIcon className="" isOpen={open === true} onClick={() => setopen((prev) => !prev)} />
         {open && <MobileMenu open={open} />}
