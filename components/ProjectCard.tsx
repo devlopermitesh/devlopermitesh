@@ -38,7 +38,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     )
   }, [project.images, project.title])
   return (
-    <div className="flex w-full mx-2 flex-col md:flex-row gap-4 md:py-10">
+    <div className="flex w-full flex-col gap-4 py-4 md:flex-row md:py-10">
       <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:order-first' : 'md:order-last'}`}>
         <FastSlider
           images={sliderImages}

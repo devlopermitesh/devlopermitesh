@@ -65,7 +65,7 @@ const ProjectSection = ({ title, description }: ProjectSectionProps) => {
         </p>
       ) : null}
 
-      <div className="flex flex-col mx-10 min-w-3xl lg:min-w-7xl">
+      <div className="flex w-full max-w-7xl flex-col px-4 md:px-8">
         {error ? (
           <p className="text-red-400 text-center">{error}</p>
         ) : loading ? (

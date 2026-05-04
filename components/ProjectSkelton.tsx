@@ -1,6 +1,6 @@
 const ProjectCardSkeleton = ({ index }: { index: number }) => {
   return (
-    <div className="flex w-full border border-white mx-2 flex-col md:flex-row gap-4 md:py-10 animate-pulse">
+    <div className="flex w-full flex-col gap-4 border border-white py-4 animate-pulse md:flex-row md:py-10">
       {/* Image Skeleton */}
       <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:order-first' : 'md:order-last'}`}>
         <div className="h-72 md:h-80 w-full rounded-xl bg-gray-800" />
