@@ -155,15 +155,15 @@ const LetsTalk = ({ socialLinks }: LetsTalkProps) => {
 
       <div className="flex flex-col max-w-lg gap-6 text-center md:text-left order-first md:order-last">
         {/* Small intro */}
-        <h2 className="text-xl md:text-3xl text-gray-700 leading-snug">
+        <p className="text-xl md:text-3xl text-gray-700 leading-snug">
           <b>Let’s</b> <span className="text-white [-webkit-text-stroke:1px_black]">talk</span>{' '}
           <b>for</b>
-        </h2>
+        </p>
 
         {/* Main heading */}
-        <h1 className="text-3xl md:text-5xl font-semibold text-gray-900 leading-tight">
+        <h2 className="text-3xl md:text-5xl font-semibold text-gray-900 leading-tight">
           Something Special
-        </h1>
+        </h2>
 
         {/* Description */}
         <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-md">

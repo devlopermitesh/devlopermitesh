@@ -5,9 +5,19 @@ import LetsTalk from '@/components/LetsTalk'
 import ProjectSection from '@/components/Projects'
 import SkillSection from '@/components/SkillSection'
 import { getPortfolioGlobal } from '@/utils/portfolio'
+import type { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
+
+export const metadata: Metadata = {
+  title: siteConfig.title,
+  description: siteConfig.description,
+  alternates: {
+    canonical: siteConfig.url.replace(/\/$/, '') + '/',
+  },
+}
 
 const Page = async () => {
   const portfolio = await getPortfolioGlobal()

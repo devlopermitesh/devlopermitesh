@@ -3,6 +3,7 @@ import '.././globals.css'
 import Header from '@/components/Header'
 import type { Metadata } from 'next'
 import { siteConfig } from '@/config/site'
+import StructuredData from '@/components/StructuredData'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -29,12 +30,12 @@ export const metadata = {
   description: siteConfig.description,
   keywords: [
     siteConfig.name,
-    'portfolio',
+    'Mitesh Gehlot portfolio',
     'full-stack developer',
-    'Next.js',
-    'React',
-    'TypeScript',
-    'web developer',
+    'Next.js developer',
+    'React developer',
+    'TypeScript developer',
+    'web developer India',
     'cloud developer',
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
@@ -79,7 +80,7 @@ export const metadata = {
     apple: '/apple-touch-icon.png',
   },
   alternates: {
-    canonical: '/',
+    canonical: siteConfig.url.replace(/\/$/, '') + '/',
   },
 } satisfies Metadata
 
@@ -100,6 +101,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+        <StructuredData />
       </body>
     </html>
   )

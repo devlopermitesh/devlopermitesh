@@ -24,6 +24,15 @@ export const Projects: CollectionConfig = {
       required: true,
     },
     {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'description',
       type: 'textarea',
       required: true,

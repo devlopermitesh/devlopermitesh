@@ -28,18 +28,18 @@ const HeroView = ({ hero, socialLinks }: HeroViewProps) => {
       <div className="flex flex-col md:flex-row items-center  w-full max-w-6xl gap-10 ">
         {/* Content */}
         <main className="flex flex-col gap-4 text-center md:text-left">
-          <h2 className="text-2xl md:text-4xl  text-gray-800">
+          <p className="text-2xl md:text-4xl  text-gray-800">
             Hello I&apos;am <b className="text-black">{name}</b>
-          </h2>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          </p>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
             <b>{rolePrimary}</b>{' '}
             {roleAccent ? (
               <span className="text-white [-webkit-text-stroke:1px_black]">{roleAccent}</span>
             ) : null}
-          </h2>
-          <h3 className="text-lg md:text-3xl text-gray-800">
+          </h1>
+          <h2 className="text-lg md:text-3xl text-gray-800">
             Based In <b className="text-black">India.</b>
-          </h3>
+          </h2>
           <p className="text-sm md:text-md text-gray-700 max-w-xl">{description}</p>
           <div className="mx-auto md:mx-0">
             <SocialLinks links={socialLinks} />

@@ -52,6 +52,14 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         <div>
           <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
           <p className="text-gray-400 mb-4">{project.description}</p>
+          {(project as any).slug && (
+            <a
+              href={`/projects/${(project as any).slug}`}
+              className="inline-flex items-center gap-2 text-white underline hover:text-gray-300 transition mb-4"
+            >
+              View Details →
+            </a>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           {project.technologies?.map((tech, index) => (

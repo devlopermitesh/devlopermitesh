@@ -1,0 +1,22 @@
+# Mitesh Gehlot - Full-Stack Developer Portfolio
+
+> Portfolio of Mitesh Gehlot, a full-stack developer specializing in Next.js, React, TypeScript, and cloud-native applications.
+
+## About
+Mitesh Gehlot is a full-stack developer building modern web products with clean design, solid engineering, and practical usability. Focuses on Next.js, React, TypeScript, Node.js, and CMS-driven experiences.
+
+## Key Pages
+- [Home](https://placeholder.example.com/) - Portfolio homepage with hero, skills, about, projects, and contact
+
+## Technologies
+- Frontend: Next.js, React, TypeScript, Tailwind CSS
+- Backend: Node.js, Payload CMS, REST APIs
+- Tools: MongoDB, Cloudinary, Vercel
+
+## Contact
+- Email: miteshgehlot6@gmail.com
+- GitHub: https://github.com/devlopermitesh
+- LinkedIn: https://www.linkedin.com (update with official URL)
+
+## Notes
+This is an experimental llms.txt file. Replace placeholder URLs with the confirmed production domain when available.

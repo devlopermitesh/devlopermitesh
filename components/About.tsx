@@ -84,7 +84,7 @@ const AboutSection = ({ about }: AboutSectionProps) => {
             )}
 
             <div className="space-y-4">
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-900">Key Expertise</h3>
+              <h2 className="text-xl md:text-2xl font-semibold text-gray-900">Key Expertise</h2>
               <ul className="grid grid-cols-2 gap-3">
                 {expertise.map((label) => (
                   <li key={label} className="flex items-center text-gray-700">
