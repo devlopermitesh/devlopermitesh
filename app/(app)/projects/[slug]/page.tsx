@@ -8,7 +8,8 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { Metadata } from 'next'
 import { siteConfig } from '@/config/site'
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { FaGithub } from 'react-icons/fa'
 
 export const dynamic = 'force-dynamic'
 
@@ -128,7 +129,7 @@ const ProjectDetailPage = async ({ params }: Props) => {
                   rel="noreferrer noopener"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black border-2 border-black rounded-xl hover:bg-black hover:text-white transition"
                 >
-                  <Github className="w-4 h-4" />
+                  <FaGithub className="w-4 h-4" />
                   View Source
                 </a>
               )}
