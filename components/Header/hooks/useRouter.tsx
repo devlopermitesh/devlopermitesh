@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 
 const routes = [
-  { path: '/about', name: 'About' },
-  { path: '/skills', name: 'Skills' },
-  { path: '/project', name: 'Projects' },
-  { path: '/contact-me', name: 'Contact Me' },
+  { path: '/#about', name: 'About' },
+  { path: '/#skill', name: 'Skills' },
+  { path: '/#project', name: 'Projects' },
+  { path: '/blogs', name: 'Blogs' },
+  { path: '/#contact-me', name: 'Contact Me' },
 ]
 
 const useRoutes = () => {
