@@ -71,20 +71,32 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
             </span>
           ))}
         </div>
-        <div className="flex flex-row gap-5 py-2 items-center">
-          <span className="text-white flex gap-2 underline items-center">
-            <SquareArrowOutUpRight className="size-5" />
-            <a href={project.demoUrl ?? ''} target="_blank" rel="noreferrer noopener">
-              visit
-            </a>
-          </span>
+        <div className="flex flex-row flex-wrap gap-5 py-2 items-center">
+          {(project as any).slug && (
+            <span className="text-white flex gap-2 underline items-center">
+              <SquareArrowOutUpRight className="size-5" />
+              <a href={`/projects/${(project as any).slug}`}>
+                read more
+              </a>
+            </span>
+          )}
+          {project.demoUrl && (
+            <span className="text-white flex gap-2 underline items-center">
+              <SquareArrowOutUpRight className="size-5" />
+              <a href={project.demoUrl} target="_blank" rel="noreferrer noopener">
+                visit
+              </a>
+            </span>
+          )}
 
-          <span className="text-white flex gap-2 underline items-center">
-            <FaGithub className="size-5" />
-            <a href={project.sourceUrl ?? ''} target="_blank" rel="noreferrer noopener">
-              source_code
-            </a>
-          </span>
+          {project.sourceUrl && (
+            <span className="text-white flex gap-2 underline items-center">
+              <FaGithub className="size-5" />
+              <a href={project.sourceUrl} target="_blank" rel="noreferrer noopener">
+                source_code
+              </a>
+            </span>
+          )}
         </div>
       </div>
     </div>
